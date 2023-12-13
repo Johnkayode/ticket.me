@@ -10,6 +10,10 @@ if (envFound.error) {
 
 export default {
     port: process.env.PORT || 3000,
-    databaseURL: process.env.MONGODB_URI,
     redisURL: process.env.REDIS_URL || 'redis://:@localhost:6379',
+    DB_HOST: process.env.DB_HOST || 'localhost',
+    DB_NAME: process.env.DB_NAME || 'ticketme',
+    DB_PORT: parseInt(process.env.DB_PORT) || 5432,
+    DB_USER: process.env.DB_USER || 'postgres',
+    DB_PASSWORD: process.env.DB_PASSWORD || 'password',
 };
