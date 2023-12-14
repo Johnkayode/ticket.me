@@ -39,11 +39,11 @@ export class Ticket {
 
     static async verifyTicket(data: string, event: Event) {
         // check if ticket exists
-        try {
-            let [uid, reference] = data.split("_")
-        } catch (error) {
-            throw error; 
+        let [uid, reference] = data.split("_")
+        if (!uid || !reference) {
+            return [null, 'Invalid ticket data format'];
         }
+        
 
         // verify ticket with qrcode
     }
