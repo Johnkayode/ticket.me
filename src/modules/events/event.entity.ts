@@ -34,6 +34,9 @@ export class Event {
     max_participants?: number
 
     @Column({ type: "boolean", default: false })
+    is_closed: boolean
+
+    @Column({ type: "boolean", default: false })
     is_cancelled: boolean 
 
     @Column({ type: "boolean", default: false })
