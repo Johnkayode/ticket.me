@@ -1,6 +1,7 @@
-import express, {Application} from 'express';
+import {Application} from 'express';
 import expressLoader from './express';
-import { AppDataSource, loadDataSource } from './typeorm'
+import { AppDataSource } from '../../ormconfig'
+import { loadDataSource } from './typeorm'
 import { connectRedisClient } from './redis';
 import logger from '../common/logger';
  

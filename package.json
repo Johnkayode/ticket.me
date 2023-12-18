@@ -5,7 +5,11 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node ./src/server.ts"
+    "dev": "ts-node ./src/server.ts",
+    "typeorm": "ts-node ./node_modules/typeorm/cli -d ormconfig",
+    "migration:generate": "typeorm migration:generate",
+    "migration:create": "typeorm migration:create",
+    "migration:revert": "typeorm migration:revert"
   },
   "author": "nerdthejohn",
   "license": "ISC",

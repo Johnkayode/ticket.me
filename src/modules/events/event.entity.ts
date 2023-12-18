@@ -4,10 +4,11 @@ import {
     Column,
     OneToMany,
 } from "typeorm"
+import { BaseProps } from "../../common/common.entity"
 import { Ticket } from "../../modules/tickets/ticket.entity"
 
 @Entity()
-export class Event {
+export class Event extends BaseProps {
     @PrimaryGeneratedColumn('uuid')
     id: number
 
@@ -21,10 +22,10 @@ export class Event {
     @Column({ type: "text", nullable: true })
     description: string
 
-    @Column({ type: "date", nullable: false })
+    @Column({ type: "timestamptz", nullable: false })
     fromDate: Date
 
-    @Column({ type: "date", nullable: false })
+    @Column({ type: "timestamptz", nullable: false })
     toDate: Date
 
     @Column({ type: "text" })

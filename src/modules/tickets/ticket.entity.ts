@@ -4,19 +4,19 @@ import {
     Column,
     ManyToOne,
 } from "typeorm"
-
+import { BaseProps } from "../../common/common.entity"
 import { Event } from "../../modules/events/event.entity"
 
 
 @Entity()
-export class Ticket {
+export class Ticket extends BaseProps {
     @PrimaryGeneratedColumn('uuid')
     id: number
 
     @ManyToOne( () => Event, (event) => event.tickets, { onDelete: 'SET NULL', nullable: true })
     event: Event
 
-    @Column({ type: "varchar", length: 255, nullable: false })
+    @Column({ type: "varchar", length: 255, nullable: false , unique: true })
     reference: string
 
     @Column({ type: "varchar", length: 255, nullable: false })
