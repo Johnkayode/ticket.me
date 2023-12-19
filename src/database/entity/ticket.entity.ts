@@ -5,7 +5,7 @@ import {
     ManyToOne,
 } from "typeorm"
 import { BaseProps } from "../../common/common.entity"
-import { Event } from "../../modules/events/event.entity"
+import { Event } from "./event.entity"
 
 
 @Entity()

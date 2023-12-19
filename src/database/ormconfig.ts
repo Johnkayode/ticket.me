@@ -1,5 +1,5 @@
 import { DataSource } from "typeorm"
-import config from './src/config'
+import config from '../config'
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -8,6 +8,6 @@ export const AppDataSource = new DataSource({
     username: config.DB_USER,
     password: config.DB_PASSWORD,
     database: config.DB_NAME,
-    entities: ['src/modules/**/*.entity{.ts,.js}'],
-    migrations: ['src/modules/**/migrations/*{.ts,.js}'],
+    entities: [__dirname + '/entity/*.{ts,js}'],
+    migrations: [__dirname + '/migrations/*.{ts,js}'],
 })
