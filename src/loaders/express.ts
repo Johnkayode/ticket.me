@@ -3,11 +3,16 @@ import * as express from 'express';
 import * as cors from 'cors';
 
 import { APIError, APIResponse } from '../common';
+import { eventRouter } from "../modules/events/events.route";
+
 
 
 export default ({ app }: { app: Application }) => {
     app.use(express.json());
     app.use(cors());
+
+    //routers
+    app.use('/events', eventRouter)
 
     // For handling 404 errors.
     app.use((req, res, next) => {

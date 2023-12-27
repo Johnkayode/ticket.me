@@ -5,7 +5,7 @@ import {
     OneToMany,
 } from "typeorm"
 import { BaseProps } from "../../common/common.entity"
-import { Ticket } from "./ticket.entity"
+import { Ticket, TicketType } from "./ticket.entity"
 
 @Entity()
 export class Event extends BaseProps {
@@ -42,6 +42,9 @@ export class Event extends BaseProps {
 
     @Column({ type: "boolean", default: false })
     is_free: boolean
+
+    @OneToMany(() => TicketType, (ticketType) => ticketType.event)
+    ticketTypes: TicketType[]
 
     @OneToMany(() => Ticket, (ticket) => ticket.event)
     tickets: Ticket[]
