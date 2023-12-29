@@ -8,9 +8,11 @@ const eventCategoryController = new EventCategoryController();
 
 eventRouter.post('/', eventController.create)
 eventRouter.get('/', eventController.list)
+eventRouter.post('/categories', eventCategoryController.create)
+eventRouter.get('/categories', eventCategoryController.list)
 eventRouter.get('/:id', eventController.retrieve)
 
-eventRouter.get('/categories', eventCategoryController.list)
-eventRouter.post('/categories', eventCategoryController.create)
+
+
 
 export { eventRouter };

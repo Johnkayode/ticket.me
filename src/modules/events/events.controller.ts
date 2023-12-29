@@ -23,39 +23,33 @@ class EventCategoryController {
    }
 
   async list(req: Request, res: Response, next) {
-    res.status(200).json(
-        new APIResponse({
-            status_code: 200,
-            message: "Categories fetched successfully.",
-            data: []
-        })
-    );
-    // try {
-    //     const query = req.query.query;
+  
+    try {
+        const query = req.query.query;
         
-    //     if (!query) {
-    //         const categories = await eventCategoryService.list();
-    //         res.status(200).json(
-    //             new APIResponse({
-    //                 status_code: 200,
-    //                 message: "Categories fetched successfully.",
-    //                 data: categories
-    //             })
-    //         );
-    //     } else {
-    //         const categories = await eventCategoryService.search(query);
-    //         res.status(200).json(
-    //             new APIResponse({
-    //                 status_code: 200,
-    //                 message: "Categories fetched successfully.",
-    //                 data: categories
-    //             })
-    //         );
-    //     }
-    // } catch (error) {
-    //     console.log(error)
-    //     next(error)
-    // }
+        if (!query) {
+            const categories = await eventCategoryService.list();
+            res.status(200).json(
+                new APIResponse({
+                    status_code: 200,
+                    message: "Categories fetched successfully.",
+                    data: categories
+                })
+            );
+        } else {
+            const categories = await eventCategoryService.search(query);
+            res.status(200).json(
+                new APIResponse({
+                    status_code: 200,
+                    message: "Categories fetched successfully.",
+                    data: categories
+                })
+            );
+        }
+    } catch (error) {
+        console.log(error)
+        next(error)
+    }
   }
 }
 
