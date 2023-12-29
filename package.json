@@ -5,7 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node ./src/server.ts",
+    "dev": "nodemon --watch 'src' --exec 'ts-node' ./src/server.ts",
     "orm": "npx typeorm-ts-node-commonjs",
     "db:create": "yarn orm migration:generate src/database/migrations/inital-migration -d src/database/ormconfig.ts",
     "db:run": "yarn orm migration:run -d src/database/ormconfig.ts"

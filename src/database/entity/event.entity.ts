@@ -2,10 +2,24 @@ import {
     Entity, 
     PrimaryGeneratedColumn, 
     Column,
+    JoinTable,
     OneToMany,
+    ManyToMany
 } from "typeorm"
 import { BaseProps } from "../../common/common.entity"
 import { Ticket, TicketType } from "./ticket.entity"
+
+
+
+@Entity()
+export class EventCategory {
+    @PrimaryGeneratedColumn('uuid')
+    id: number
+
+    @Column()
+    name: string
+}
+
 
 @Entity()
 export class Event extends BaseProps {
@@ -21,6 +35,10 @@ export class Event extends BaseProps {
 
     @Column({ type: "text", nullable: true })
     description: string
+
+    @ManyToMany(() => EventCategory)
+    @JoinTable()
+    categories: EventCategory[]
 
     @Column({ type: "timestamptz", nullable: false })
     fromDate: Date

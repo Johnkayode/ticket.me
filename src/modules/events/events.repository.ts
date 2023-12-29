@@ -1,5 +1,8 @@
 import { AppDataSource } from '../../database/ormconfig'
-import { Event } from '../../database/entity/event.entity'
+import { Event, EventCategory } from '../../database/entity/event.entity'
 
 
-export const EventRepository = AppDataSource.getRepository(Event)
+const EventRepository = AppDataSource.getRepository(Event)
+const EventCategoryRepository = AppDataSource.getRepository(EventCategory)
+
+export { EventRepository, EventCategoryRepository }

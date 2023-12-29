@@ -1,10 +1,66 @@
-import { EventService } from "./events.service";
+import { EventService, EventCategoryService } from "./events.service";
 import { Request, Response } from "express";
 import { APIResponse, APIError } from "../../common";
 
 const eventService = new EventService();
+const eventCategoryService = new EventCategoryService();
 
-export class EventController {
+
+class EventCategoryController {
+   async create(req: Request, res: Response, next) {
+        try {
+            const category = await eventCategoryService.create(req.body);
+            res.status(201).json(
+                new APIResponse({
+                    status_code: 201,
+                    message: "Category created successfully.",
+                    data: category
+                })
+            ); 
+        } catch (error) {
+            next(error)
+        }
+   }
+
+  async list(req: Request, res: Response, next) {
+    res.status(200).json(
+        new APIResponse({
+            status_code: 200,
+            message: "Categories fetched successfully.",
+            data: []
+        })
+    );
+    // try {
+    //     const query = req.query.query;
+        
+    //     if (!query) {
+    //         const categories = await eventCategoryService.list();
+    //         res.status(200).json(
+    //             new APIResponse({
+    //                 status_code: 200,
+    //                 message: "Categories fetched successfully.",
+    //                 data: categories
+    //             })
+    //         );
+    //     } else {
+    //         const categories = await eventCategoryService.search(query);
+    //         res.status(200).json(
+    //             new APIResponse({
+    //                 status_code: 200,
+    //                 message: "Categories fetched successfully.",
+    //                 data: categories
+    //             })
+    //         );
+    //     }
+    // } catch (error) {
+    //     console.log(error)
+    //     next(error)
+    // }
+  }
+}
+
+
+class EventController {
     async create(req: Request, res: Response, next) {
         try {
             const event = await eventService.create(req.body);
@@ -68,4 +124,7 @@ export class EventController {
         }
     }
 }
+
+export { EventController, EventCategoryController }
+
    

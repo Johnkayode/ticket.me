@@ -1,13 +1,35 @@
-import { EventRepository } from './events.repository'
-import { Event } from '../../database/entity/event.entity'
+import { EventRepository, EventCategoryRepository } from './events.repository'
+import { Event, EventCategory } from '../../database/entity/event.entity'
 
 
-export class EventService {
+class EventCategoryService {
+    repository = EventCategoryRepository
+
+    async create(data: Omit<EventCategory, "id">) {
+        let category = await this.repository.create(data)
+        return this.repository.save(category)
+    }
+
+    async list(): Promise<EventCategory[]> {
+        return this.repository.find()
+    }
+
+    async search(query: string): Promise<EventCategory[]> {
+        return await this.repository
+            .createQueryBuilder()
+            .select()
+            .where("name ILIKE :query", { query: `%${query}%` })
+            .getMany();
+    }
+}
+
+
+class EventService {
     repository = EventRepository
 
     async create(data: Omit<Event, "id">): Promise<Event> {
-        let item = await this.repository.create(data);
-        return this.repository.save(item);
+        let event = await this.repository.create(data);
+        return this.repository.save(event);
     }
 
     async list(): Promise<Event[]> {
@@ -39,3 +61,6 @@ export class EventService {
             // .orWhere("description ILIKE :query", { query: `%${query}%` })
     }
 }
+
+
+export { EventService, EventCategoryService }

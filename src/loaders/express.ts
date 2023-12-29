@@ -3,7 +3,7 @@ import * as express from 'express';
 import * as cors from 'cors';
 
 import { APIError, APIResponse } from '../common';
-import { eventRouter } from "../modules/events/events.route";
+import { eventRouter } from "../modules/events/events.routes";
 
 
 
