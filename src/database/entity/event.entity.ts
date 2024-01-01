@@ -8,6 +8,7 @@ import {
 } from "typeorm"
 import { BaseProps } from "../../common/common.entity"
 import { Ticket, TicketType } from "./ticket.entity"
+import { Currency } from "./event.enum"
 
 
 
@@ -60,6 +61,13 @@ export class Event extends BaseProps {
 
     @Column({ type: "boolean", default: false })
     is_free: boolean
+
+    @Column({
+        type: "enum",
+        enum: Currency,
+        default: Currency.NAIRA,
+    })
+    currency: Currency
 
     @OneToMany(() => TicketType, (ticketType) => ticketType.event)
     ticketTypes: TicketType[]
