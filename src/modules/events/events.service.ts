@@ -66,7 +66,7 @@ class EventService {
 
     }
 
-    async generateGroupTickets(count:number, max:number = 5) {
+    async generateGroupTickets(count: number, max: number = 5) {
 
     }
 }

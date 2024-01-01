@@ -30,5 +30,32 @@ export class EventService {
         return await this.repository.update(id, data)
     }
 
+    async verifyTicket(data: string, event: Event) {
+        // check if ticket exists
+        let [uid, reference] = data.split("_")
+        if (!uid || !reference) {
+            return [null, 'Invalid ticket data format'];
+        }  
+
+        // verify ticket with qrcode
+    }
+
+    async generateQrCode(ticket: Ticket) {
+        // generate qrcode
+        let data = `${ticket.id}_${ticket.reference}`
+        let qrcode = data;
+        ticket.qrcode = qrcode
+
+        // save to db
+    }
+
+    async generateTicketPdf(ticket: Ticket) {
+        // generate pdf using qrcode
+        let ticketPdf = ticket.qrcode
+        ticket.pdf = ticketPdf
+
+        // save to db
+    }
+
 
 }
