@@ -21,6 +21,7 @@ class EventCategoryService {
             .where("name ILIKE :query", { query: `%${query}%` })
             .getMany();
     }
+
 }
 
 
@@ -59,6 +60,14 @@ class EventService {
             .where("name ILIKE :query", { query: `%${query}%` })
             .getMany();
             // .orWhere("description ILIKE :query", { query: `%${query}%` })
+    }
+
+    async generateTicket() {
+
+    }
+
+    async generateGroupTickets(count:number, max:number = 5) {
+
     }
 }
 

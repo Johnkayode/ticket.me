@@ -30,4 +30,5 @@ export class EventService {
         return await this.repository.update(id, data)
     }
 
+
 }
