@@ -10,12 +10,12 @@ export class UserService {
         return this.repository.save(user)
     }
 
-    async retrieveByEmail(email: string): Promise<User> {
-        const user =  await this.repository.findOneBy({ email: email });
+    async list(): Promise<User[]> {
+        return this.repository.find()
+    }
 
-        if (!user) {
-            throw new Error("User not found.");
-        }
+    async retrieveByEmail(email: string): Promise<User> {
+        const user = this.repository.findOneBy({ email: email });
         return user
     }
 }

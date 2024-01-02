@@ -1,9 +1,12 @@
 import { NextFunction, Request, Response, Application } from 'express';
+import { isCelebrateError } from 'celebrate';
 import * as express from 'express';
 import * as cors from 'cors';
 
-import { APIError, APIResponse } from '../common';
+import { APIError, APIResponse, logger } from '../common';
+import { authRouter } from '../modules/auth/auth.routes';
 import { eventRouter } from "../modules/events/events.routes";
+
 
 
 
@@ -12,6 +15,7 @@ export default ({ app }: { app: Application }) => {
     app.use(cors());
 
     //routers
+    app.use('/auth', authRouter)
     app.use('/events', eventRouter)
 
     // For handling 404 errors.
@@ -19,6 +23,22 @@ export default ({ app }: { app: Application }) => {
         const err = new APIError({ message: 'That resource does not exist on this server.' });
         err.status_code = 404;
         next(err);
+    });
+
+    // For handling validation errors.
+    app.use((err: APIError, req: Request, res: Response, next: NextFunction) => {
+        // logger.error(err);
+        if (isCelebrateError(err)) {
+            let errors: any = err.details.get('body')
+                || err.details.get('query')
+                || err.details.get('params');
+            errors = errors.details.map((x: any) => x.message);
+            return res.status(400).json(new APIResponse({
+                status_code: 400,
+                message: errors.join(' | '),
+            }));
+        }
+        return next(err);
     });
 
     // For handling 500 errors.
