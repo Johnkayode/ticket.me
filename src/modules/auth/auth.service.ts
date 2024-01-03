@@ -1,8 +1,9 @@
 import * as bcrypt from 'bcrypt';
+import { sign, SignOptions, TokenExpiredError } from 'jsonwebtoken';
 import { User } from 'database/entity/user.entity';
 import { UserService } from "../users/users.service";
 import { APIResponse, APIError } from "../../common";
-// import { config } from 'dotenv';
+import config from '../../config';
 
 const userService = new UserService();
 
@@ -30,7 +31,7 @@ class AuthService {
     return newUser;
   }
 
-  async login(data: Omit<User, "id">) {
+  async login(data) {
     const user = await userService.retrieveByEmail(data.email);
     if (!user) {
       throw new APIError({ message: 'User does not exist.', status_code: 404 });
@@ -40,8 +41,20 @@ class AuthService {
       throw new APIError({ message: 'Invalid credentials.', status_code: 401 });
     }
     delete user.password;
-    // return { user, token: this.tokenize(user) };
+    return { user, token: this.tokenize(user) };
 
+  }
+
+  /**
+   * @param payload - an object which houses the user's
+   *  information.
+   * @returns - a token
+  */
+  private tokenize(payload: any) {
+    const signInOptions: SignOptions = {
+      expiresIn: '1d',
+    };
+    return sign({payload}, config.jwtSecretKey, signInOptions);
   }
 
 }

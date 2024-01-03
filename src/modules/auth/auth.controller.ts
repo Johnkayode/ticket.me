@@ -22,4 +22,20 @@ export class AuthController {
             next(error)
         }
    }
+
+   async login(req: Request, res: Response, next) {
+    try {
+        const user = await authService.login(req.body);
+
+        res.status(200).json(
+            new APIResponse({
+                status_code: 200,
+                message: "User logged in successfully.",
+                data: user
+            })
+        ); 
+    } catch (error) {
+        next(error)
+    }
+}
 }

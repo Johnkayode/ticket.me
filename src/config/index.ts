@@ -9,6 +9,7 @@ if (envFound.error) {
 }
 
 export default {
+    jwtSecretKey: process.env.JWT_SECRET_KEY,
     port: process.env.PORT || 3000,
     redisURL: process.env.REDIS_URL || 'redis://:@localhost:6379',
     DB_HOST: process.env.DB_HOST || 'localhost',
