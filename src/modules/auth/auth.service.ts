@@ -30,6 +30,20 @@ class AuthService {
     return newUser;
   }
 
+  async login(data: Omit<User, "id">) {
+    const user = await userService.retrieveByEmail(data.email);
+    if (!user) {
+      throw new APIError({ message: 'User does not exist.', status_code: 404 });
+    }
+    const match = await bcrypt.compare(data.password, user.password);
+    if (!match) {
+      throw new APIError({ message: 'Invalid credentials.', status_code: 401 });
+    }
+    delete user.password;
+    // return { user, token: this.tokenize(user) };
+
+  }
+
 }
 
 export { AuthService }
