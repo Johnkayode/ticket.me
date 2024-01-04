@@ -3,6 +3,7 @@ import { sign, SignOptions, TokenExpiredError } from 'jsonwebtoken';
 import { User } from 'database/entity/user.entity';
 import { UserService } from "../users/users.service";
 import { APIResponse, APIError } from "../../common";
+import { RegisterDTO, LoginDTO } from './auth.dto';
 import config from '../../config';
 
 const userService = new UserService();
@@ -16,7 +17,7 @@ class AuthService {
    * phoneNumber and password fields.
    * @returns - null
   */
-  async register(data: Omit<User, "id">): Promise<any> {
+  async register(data: RegisterDTO): Promise<any> {
     
     const user = await userService.retrieveByEmail(data.email);
     if (user) {
@@ -31,7 +32,7 @@ class AuthService {
     return newUser;
   }
 
-  async login(data) {
+  async login(data: LoginDTO) {
     const user = await userService.retrieveByEmail(data.email);
     if (!user) {
       throw new APIError({ message: 'User does not exist.', status_code: 404 });

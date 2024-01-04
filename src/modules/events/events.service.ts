@@ -1,11 +1,12 @@
 import { EventRepository, EventCategoryRepository } from './events.repository'
 import { Event, EventCategory } from '../../database/entity/event.entity'
+import { CreateEventDTO, CreateCategoryDTO } from './events.dto'
 
 
 class EventCategoryService {
     repository = EventCategoryRepository
 
-    async create(data: Omit<EventCategory, "id">) {
+    async create(data: CreateCategoryDTO) {
         let category = await this.repository.create(data)
         return this.repository.save(category)
     }
@@ -28,7 +29,7 @@ class EventCategoryService {
 class EventService {
     repository = EventRepository
 
-    async create(data: Omit<Event, "id">): Promise<Event> {
+    async create(data: CreateEventDTO): Promise<Event> {
         let event = await this.repository.create(data);
         return this.repository.save(event);
     }
