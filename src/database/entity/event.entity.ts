@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, JoinTable, OneToMany, ManyToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, JoinTable, OneToMany, ManyToMany, ManyToOne } from 'typeorm';
 import { BaseProps } from '../../common/common.entity';
 import { Ticket, TicketType } from './ticket.entity';
 import { Currency } from './event.enum';
+import { User } from './user.entity';
 
 @Entity()
 export class EventCategory {
@@ -16,6 +17,9 @@ export class EventCategory {
 export class Event extends BaseProps {
   @PrimaryGeneratedColumn('uuid')
   id: number;
+
+  @ManyToOne(() => User, (user) => user.events)
+  user: User;
 
   @Column({
     type: 'varchar',

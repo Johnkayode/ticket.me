@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index, Unique, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Index, Unique, OneToMany, JoinTable } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { BaseProps } from '../../common/common.entity';
+import { Event } from './event.entity';
 // import { Company } from "./company.entity";
 
 // @Unique('', ['email', 'company'])
@@ -42,6 +43,9 @@ export class User extends BaseProps {
 
   @Column({ type: 'boolean', default: false })
   phone_number_verified: boolean;
+
+  @OneToMany(() => Event, (event) => event.user)
+  events: Event[];
 
   // company: Company[]
 }

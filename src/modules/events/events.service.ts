@@ -32,15 +32,30 @@ class EventService {
   }
 
   async list(): Promise<Event[]> {
-    return this.repository.find();
+    return this.repository.find({
+      relations: {
+        user: true,
+        tickets: true,
+        ticketTypes: true,
+        categories: true,
+      },
+    });
   }
 
   async retrieve(id: number): Promise<Event> {
-    const event = await this.repository.findOneBy({ id: id });
-    if (!event) {
+    const event = await this.repository.find({
+      where: { id: id },
+      relations: {
+        user: true,
+        tickets: true,
+        ticketTypes: true,
+        categories: true,
+      },
+    });
+    if (!event.length) {
       throw new Error('Event not found.');
     }
-    return event;
+    return event[0];
   }
 
   async update(id: number, data: Partial<Event>) {

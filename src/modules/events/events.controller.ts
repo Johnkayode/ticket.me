@@ -1,4 +1,5 @@
 import { EventService, EventCategoryService } from './events.service';
+import { EventDTO } from './events.dto';
 import { Request, Response } from 'express';
 import { APIResponse, APIError } from '../../common';
 
@@ -8,7 +9,7 @@ const eventCategoryService = new EventCategoryService();
 class EventCategoryController {
   async create(req: Request, res: Response, next) {
     try {
-      const category = await eventCategoryService.create(req.body);
+      const category = await eventCategoryService.create({ ...req.body, user: req.currentUser });
       res.status(201).json(
         new APIResponse({
           status_code: 201,
@@ -45,7 +46,6 @@ class EventCategoryController {
         );
       }
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }

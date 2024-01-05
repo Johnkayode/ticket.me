@@ -29,13 +29,18 @@ export function IsAuthenticated(roles: string | string[]) {
   return async (req, res, next) => {
     const token = getTokenFromHeader(req);
     if (token) {
-      const data = await validateToken(token);
-      req.currentUser = await userService.retrieveByEmail(data.email);
-      logger.info(data, req.body);
+      try {
+        const data = await validateToken(token);
+        req.currentUser = await userService.retrieveByEmail(data.email);
+        logger.info(data, req.body);
 
-      if (roles === '*' || roles.includes(data.role)) {
-        return next();
+        if (roles === '*' || roles.includes(data.role)) {
+          return next();
+        }
+      } catch (error) {
+        return next(new APIError({ message: error.message, status_code: 401 }));
       }
+
       return next(new APIError({ message: 'Unauthorized.', status_code: 401 }));
     } else {
       return next(new APIError({ message: 'Unauthorized.', status_code: 401 }));
