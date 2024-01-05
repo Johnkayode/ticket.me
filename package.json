@@ -6,6 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --watch 'src' --exec 'ts-node' ./src/server.ts",
+    "lint": "eslint --ext .js,.ts",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "orm": "npx typeorm-ts-node-commonjs",
     "db:create": "yarn orm migration:generate src/database/migrations/inital-migration -d src/database/ormconfig.ts",
     "db:run": "yarn orm migration:run -d src/database/ormconfig.ts"
@@ -13,6 +15,12 @@
   "author": "nerdthejohn",
   "license": "ISC",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "eslint": "^8.56.0",
+    "eslint-config-standard-with-typescript": "^43.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.1",
+    "eslint-plugin-promise": "^6.1.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
@@ -27,6 +35,7 @@
     "pg": "^8.11.3",
     "pino": "^8.17.0",
     "pino-pretty": "^10.2.3",
+    "prettier": "^3.1.1",
     "redis": "^4.6.11",
     "typeorm": "^0.3.17"
   }

@@ -1,5 +1,4 @@
-import { AppDataSource } from '../../database/ormconfig'
-import { Ticket } from '../../database/entity/ticket.entity'
+import { AppDataSource } from '../../database/ormconfig';
+import { Ticket } from '../../database/entity/ticket.entity';
 
-
-export const TicketRepository = AppDataSource.getRepository(Ticket)
+export const TicketRepository = AppDataSource.getRepository(Ticket);

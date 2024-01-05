@@ -9,12 +9,12 @@ if (envFound.error) {
 }
 
 export default {
-    jwtSecretKey: process.env.JWT_SECRET_KEY,
-    port: process.env.PORT || 3000,
-    redisURL: process.env.REDIS_URL || 'redis://:@localhost:6379',
-    DB_HOST: process.env.DB_HOST || 'localhost',
-    DB_NAME: process.env.DB_NAME || 'ticketme',
-    DB_PORT: parseInt(process.env.DB_PORT) || 5432,
-    DB_USER: process.env.DB_USER || 'postgres',
-    DB_PASSWORD: process.env.DB_PASSWORD || 'password',
+  jwtSecretKey: process.env.JWT_SECRET_KEY,
+  port: process.env.PORT || 3000,
+  redisURL: process.env.REDIS_URL || 'redis://:@localhost:6379',
+  DB_HOST: process.env.DB_HOST || 'localhost',
+  DB_NAME: process.env.DB_NAME || 'ticketme',
+  DB_PORT: parseInt(process.env.DB_PORT) || 5432,
+  DB_USER: process.env.DB_USER || 'postgres',
+  DB_PASSWORD: process.env.DB_PASSWORD || 'password',
 };

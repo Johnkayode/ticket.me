@@ -1,6 +1,6 @@
-// import { 
-//     Entity, 
-//     PrimaryGeneratedColumn, 
+// import {
+//     Entity,
+//     PrimaryGeneratedColumn,
 //     Column,
 //     ManyToOne,
 //     OneToMany,
@@ -9,14 +9,13 @@
 // import { BaseProps } from "../../common/common.entity"
 // import { User } from "./user.entity";
 
-
 // @Entity()
 // export class Company extends BaseProps {
 //     @PrimaryGeneratedColumn('uuid')
 //     id: number
 
-//     @Column({ 
-//         type: "varchar", 
+//     @Column({
+//         type: "varchar",
 //         nullable: false,
 //         length: 255
 //     })
@@ -31,4 +30,3 @@
 //     @OneToMany(() => User, (user) => user.companies)
 //     staff: User[];
 // }
-  

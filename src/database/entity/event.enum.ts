@@ -1,7 +1,6 @@
 enum Currency {
-    NAIRA = "ngn",
-    CEDI = "ghs",
+  NAIRA = 'ngn',
+  CEDI = 'ghs',
 }
 
-
-export { Currency }
+export { Currency };

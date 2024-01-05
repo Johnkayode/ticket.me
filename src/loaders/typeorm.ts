@@ -1,4 +1,4 @@
-import { DataSource } from "typeorm"
+import { DataSource } from 'typeorm';
 import { logger } from '../common';
 
 // const AppDataSource = new DataSource({
@@ -12,15 +12,12 @@ import { logger } from '../common';
 //     migrations: ['src/modules/**/migrations/*{.ts,.js}'],
 // })
 
-
 export async function loadDataSource(appDataSource: DataSource) {
-    try {
-        await appDataSource.initialize()
-    } catch(error) {
-        logger.error('An error occured while attempting to connect redis client.');
-        logger.error(error);
-        process.exit(1);
-    }
+  try {
+    await appDataSource.initialize();
+  } catch (error) {
+    logger.error('An error occured while attempting to connect redis client.');
+    logger.error(error);
+    process.exit(1);
+  }
 }
-
-

@@ -1,24 +1,22 @@
 import * as bcrypt from 'bcrypt';
 import { sign, SignOptions, TokenExpiredError } from 'jsonwebtoken';
 import { User } from 'database/entity/user.entity';
-import { UserService } from "../users/users.service";
-import { APIResponse, APIError } from "../../common";
+import { UserService } from '../users/users.service';
+import { APIResponse, APIError } from '../../common';
 import { RegisterDTO, LoginDTO } from './auth.dto';
 import config from '../../config';
 
 const userService = new UserService();
 
 class AuthService {
-
   /**
    * Registers a new user, hashes their password and adds
    * their details to the database.
    * @param data - an interface with firstName, lastName, email,
    * phoneNumber and password fields.
    * @returns - null
-  */
+   */
   async register(data: RegisterDTO): Promise<any> {
-    
     const user = await userService.retrieveByEmail(data.email);
     if (user) {
       throw new APIError({
@@ -28,7 +26,7 @@ class AuthService {
     }
 
     const password = await bcrypt.hash(data.password, 12);
-    const newUser = await userService.create({ ...data, password});
+    const newUser = await userService.create({ ...data, password });
     return newUser;
   }
 
@@ -43,21 +41,19 @@ class AuthService {
     }
     delete user.password;
     return { user, token: this.tokenize(user) };
-
   }
 
   /**
    * @param payload - an object which houses the user's
    *  information.
    * @returns - a token
-  */
+   */
   private tokenize(payload: any) {
     const signInOptions: SignOptions = {
       expiresIn: '1d',
     };
-    return sign({payload}, config.jwtSecretKey, signInOptions);
+    return sign({ payload }, config.jwtSecretKey, signInOptions);
   }
-
 }
 
-export { AuthService }
+export { AuthService };
