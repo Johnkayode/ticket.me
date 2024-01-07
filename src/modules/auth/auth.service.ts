@@ -40,7 +40,7 @@ class AuthService {
       throw new APIError({ message: 'Invalid credentials.', status_code: 401 });
     }
     delete user.password;
-    return { user, token: this.tokenize(user) };
+    return { token: this.tokenize(user) };
   }
 
   /**

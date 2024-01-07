@@ -5,7 +5,7 @@ import { Event } from './event.entity';
 @Entity()
 export class TicketType extends BaseProps {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @ManyToOne(() => Event, (event) => event.ticketTypes, { onDelete: 'SET NULL', nullable: true })
   event: Event;

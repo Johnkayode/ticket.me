@@ -1,6 +1,9 @@
 import { EventRepository, EventCategoryRepository } from './events.repository';
 import { Event, EventCategory } from '../../database/entity/event.entity';
 import { CreateEventDTO, CreateCategoryDTO } from './events.dto';
+import { TicketTypeRepository } from '../tickets/tickets.repository';
+import { CreateTicketTypeDTO } from '../tickets/tickets.dto';
+import { SchemaTextFieldPhonetics } from 'redis';
 
 class EventCategoryService {
   repository = EventCategoryRepository;
@@ -14,6 +17,10 @@ class EventCategoryService {
     return this.repository.find();
   }
 
+  async retrieve(id: string): Promise<EventCategory> {
+    return this.repository.findOneBy({ id: id});
+  }
+
   async search(query: string): Promise<EventCategory[]> {
     return await this.repository
       .createQueryBuilder()
@@ -25,17 +32,35 @@ class EventCategoryService {
 
 class EventService {
   repository = EventRepository;
+  categoryService = new EventCategoryService();
 
-  async create(data: CreateEventDTO): Promise<Event> {
+  async create(data: Omit<CreateEventDTO, "categories">): Promise<Event> {
+   
     let event = await this.repository.create(data);
+    
+    event.ticketTypes = [];
+    for (const ticketTypeData of data.ticketTypes) {
+        let ticketType = await TicketTypeRepository.create(ticketTypeData);
+        await TicketTypeRepository.save(ticketType); 
+        event.ticketTypes.push(ticketType);
+    }
+
+    event.categories = [];
+    // @ts-ignore
+    for (const categoryId of data.categories) {
+        let category = await this.categoryService.retrieve(categoryId);; 
+        event.categories.push(category);
+    }
+ 
+    
     return this.repository.save(event);
   }
 
-  async list(): Promise<Event[]> {
+  async list({user = true, tickets = false}: {user?: boolean, tickets?: boolean}): Promise<Event[]> {
     return this.repository.find({
       relations: {
-        user: true,
-        tickets: true,
+        user: user,
+        tickets: tickets,
         ticketTypes: true,
         categories: true,
       },
@@ -43,7 +68,7 @@ class EventService {
   }
 
   async retrieve(id: number): Promise<Event> {
-    const event = await this.repository.find({
+    const events = await this.repository.find({
       where: { id: id },
       relations: {
         user: true,
@@ -52,10 +77,10 @@ class EventService {
         categories: true,
       },
     });
-    if (!event.length) {
+    if (!events.length) {
       throw new Error('Event not found.');
     }
-    return event[0];
+    return events[0];
   }
 
   async update(id: number, data: Partial<Event>) {

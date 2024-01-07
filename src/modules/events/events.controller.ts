@@ -1,5 +1,4 @@
 import { EventService, EventCategoryService } from './events.service';
-import { EventDTO } from './events.dto';
 import { Request, Response } from 'express';
 import { APIResponse, APIError } from '../../common';
 
@@ -54,7 +53,7 @@ class EventCategoryController {
 class EventController {
   async create(req: Request, res: Response, next) {
     try {
-      const event = await eventService.create(req.body);
+      const event = await eventService.create({...req.body, user: req.currentUser});
       res.status(201).json(
         new APIResponse({
           status_code: 201,
@@ -71,7 +70,7 @@ class EventController {
     try {
       const query = req.query.query;
       if (!query) {
-        const events = await eventService.list();
+        const events = await eventService.list({});
         res.status(200).json(
           new APIResponse({
             status_code: 200,
