@@ -18,7 +18,7 @@ class EventCategoryService {
   }
 
   async retrieve(id: string): Promise<EventCategory> {
-    return this.repository.findOneBy({ id: id});
+    return this.repository.findOneBy({ id: id });
   }
 
   async search(query: string): Promise<EventCategory[]> {
@@ -34,29 +34,27 @@ class EventService {
   repository = EventRepository;
   categoryService = new EventCategoryService();
 
-  async create(data: Omit<CreateEventDTO, "categories">): Promise<Event> {
-   
+  async create(data: Omit<CreateEventDTO, 'categories'>): Promise<Event> {
     let event = await this.repository.create(data);
-    
+
     event.ticketTypes = [];
     for (const ticketTypeData of data.ticketTypes) {
-        let ticketType = await TicketTypeRepository.create(ticketTypeData);
-        await TicketTypeRepository.save(ticketType); 
-        event.ticketTypes.push(ticketType);
+      let ticketType = await TicketTypeRepository.create(ticketTypeData);
+      await TicketTypeRepository.save(ticketType);
+      event.ticketTypes.push(ticketType);
     }
 
     event.categories = [];
     // @ts-ignore
     for (const categoryId of data.categories) {
-        let category = await this.categoryService.retrieve(categoryId);; 
-        event.categories.push(category);
+      let category = await this.categoryService.retrieve(categoryId);
+      event.categories.push(category);
     }
- 
-    
+
     return this.repository.save(event);
   }
 
-  async list({user = true, tickets = false}: {user?: boolean, tickets?: boolean}): Promise<Event[]> {
+  async list({ user = true, tickets = false }: { user?: boolean; tickets?: boolean }): Promise<Event[]> {
     return this.repository.find({
       relations: {
         user: user,
