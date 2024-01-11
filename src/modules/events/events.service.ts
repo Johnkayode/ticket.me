@@ -2,7 +2,7 @@ import { EventRepository, EventCategoryRepository } from './events.repository';
 import { Event, EventCategory } from '../../database/entity/event.entity';
 import { CreateEventDTO, CreateCategoryDTO } from './events.dto';
 import { TicketTypeRepository } from '../tickets/tickets.repository';
-import { CreateTicketTypeDTO } from '../tickets/tickets.dto';
+import { CreateTicketDTO } from '../tickets/tickets.dto';
 import { SchemaTextFieldPhonetics } from 'redis';
 
 class EventCategoryService {
@@ -100,9 +100,12 @@ class EventService {
     // .orWhere("description ILIKE :query", { query: `%${query}%` })
   }
 
-  async generateTicket() {}
+  /**
+   * This function generates a ticket for an event
+   * @returns
+   */
+  async generateTicket(id: number, data: CreateTicketDTO) {}
 
-  async generateGroupTickets(count: number, max: number = 5) {}
 }
 
 export { EventService, EventCategoryService };
