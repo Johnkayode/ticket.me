@@ -5,4 +5,5 @@ import { TicketType } from 'database/entity/ticket.entity';
 const EventRepository = AppDataSource.getRepository(Event);
 const EventCategoryRepository = AppDataSource.getRepository(EventCategory);
 
+
 export { EventRepository, EventCategoryRepository };

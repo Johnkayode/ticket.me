@@ -53,7 +53,7 @@ class EventCategoryController {
 class EventController {
   async create(req: Request, res: Response, next) {
     try {
-      const event = await eventService.create({ ...req.body, user: req.currentUser });
+      const event = await eventService.create({...req.body, user: req.currentUser});
       res.status(201).json(
         new APIResponse({
           status_code: 201,
