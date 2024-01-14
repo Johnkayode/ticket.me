@@ -3,7 +3,9 @@ import { Event, EventCategory } from '../../database/entity/event.entity';
 import { CreateEventDTO, CreateCategoryDTO } from './events.dto';
 import { TicketTypeRepository } from '../tickets/tickets.repository';
 import { CreateTicketDTO } from '../tickets/tickets.dto';
-import { SchemaTextFieldPhonetics } from 'redis';
+import { TicketService, TicketTypeService } from '../tickets/tickets.service';
+import { generateTicketReference } from '../tickets/tickets.utils';
+
 
 class EventCategoryService {
   repository = EventCategoryRepository;
@@ -33,6 +35,8 @@ class EventCategoryService {
 class EventService {
   repository = EventRepository;
   categoryService = new EventCategoryService();
+  ticketService = new TicketService();
+  ticketTypeService = new TicketTypeService();
 
   async create(data: Omit<CreateEventDTO, "categories">): Promise<Event> {
    
@@ -104,7 +108,12 @@ class EventService {
    * This function generates a ticket for an event
    * @returns
    */
-  async generateTicket(id: number, data: CreateTicketDTO) {}
+  async generateTicket(id: number, data: CreateTicketDTO) {
+    const event = await this.repository.findOneBy({ id: id })
+    let ticketType = await this.ticketTypeService.retrieve(data.ticketType);
+    let reference = generateTicketReference(event.name)
+    return await this.ticketService.create({...data, reference: reference, ticketType: ticketType, event: event})
+  }
 
 }
 
