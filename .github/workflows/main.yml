@@ -5,6 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to publish readme
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Publish README
         id: hello
         uses: johnkayode/hashnode-pub@v0.1.0
