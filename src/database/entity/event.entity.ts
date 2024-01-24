@@ -16,7 +16,7 @@ export class EventCategory {
 @Entity()
 export class Event extends BaseProps {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @ManyToOne(() => User, (user) => user.events)
   user: User;

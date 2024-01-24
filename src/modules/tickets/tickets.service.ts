@@ -22,7 +22,7 @@ export class TicketService {
     return event;
   }
 
-  async update(id: number, data: Partial<Ticket>) {
+  async update(id: string, data: Partial<Ticket>) {
     const event = await this.repository.findOneBy({ id: id });
     if (!event) {
       throw new Error('Ticket not found.');
@@ -59,24 +59,22 @@ export class TicketService {
 }
 
 export class TicketTypeService {
-    repository = TicketTypeRepository;
-  
-    async create(data: Partial<TicketType>): Promise<TicketType> {
-      let item = await this.repository.create(data);
-      return this.repository.save(item);
-    }
-  
-    async list(): Promise<TicketType[]> {
-      return this.repository.find();
-    }
-  
-    async retrieve(id: string): Promise<TicketType> {
-      const event = await this.repository.findOneBy({ id: id });
-      if (!event) {
-        throw new Error('Ticket Type not found.');
-      }
-      return event;
-    }
-}  
+  repository = TicketTypeRepository;
 
+  async create(data: Partial<TicketType>): Promise<TicketType> {
+    let item = await this.repository.create(data);
+    return this.repository.save(item);
+  }
 
+  async list(): Promise<TicketType[]> {
+    return this.repository.find();
+  }
+
+  async retrieve(id: string): Promise<TicketType> {
+    const event = await this.repository.findOneBy({ id: id });
+    if (!event) {
+      throw new Error('Ticket Type not found.');
+    }
+    return event;
+  }
+}

@@ -1,0 +1,18 @@
+on: [push]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: A job to publish readme
+    steps:
+      - name: Publish README
+        id: hello
+        uses: nerdthejohn/hashnode-pub@v0.1.1-beta
+        with:
+          title: 'Mona the Octocat'
+          publication_id: 'iidddd'
+          access_token: "iddddd"
+          markdown: 'README.md'
+
+      - name: Get the publication url
+        run: echo "The Publish url was ${{ steps.hello.outputs.url }}"

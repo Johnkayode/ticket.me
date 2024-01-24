@@ -1,4 +1,3 @@
-
 export interface CreateTicketTypeDTO {
   title: string;
   description?: string;
@@ -6,8 +5,9 @@ export interface CreateTicketTypeDTO {
 }
 
 export interface CreateTicketDTO {
-    first_name: string;
-    last_name: string;
-    email: string;
-    ticketType: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  ticketType: string;
+  eventId: string;
 }

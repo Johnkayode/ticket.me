@@ -53,7 +53,7 @@ class EventCategoryController {
 class EventController {
   async create(req: Request, res: Response, next) {
     try {
-      const event = await eventService.create({...req.body, user: req.currentUser});
+      const event = await eventService.create({ ...req.body, user: req.currentUser });
       res.status(201).json(
         new APIResponse({
           status_code: 201,
@@ -107,6 +107,26 @@ class EventController {
       res.status(404).json(
         new APIError({
           status_code: 404,
+          message: error.message,
+        })
+      );
+    }
+  }
+
+  async generateTicket(req: Request, res: Response, id: string) {
+    try {
+      let ticket = await eventService.generateTicket({ ...req.body, id: id });
+      res.status(200).json(
+        new APIResponse({
+          status_code: 200,
+          message: 'Events retrieved successfully.',
+          data: ticket,
+        })
+      );
+    } catch (error) {
+      res.status(400).json(
+        new APIError({
+          status_code: 400,
           message: error.message,
         })
       );

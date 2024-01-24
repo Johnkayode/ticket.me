@@ -26,7 +26,7 @@ export class TicketType extends BaseProps {
 @Entity()
 export class Ticket extends BaseProps {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @ManyToOne(() => Event, (event) => event.tickets, { onDelete: 'SET NULL', nullable: true })
   event: Event;
