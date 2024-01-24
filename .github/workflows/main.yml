@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Publish README
         id: hello
-        uses: nerdthejohn/hashnode-pub@v0.1.1-beta
+        uses: johnkayode/hashnode-pub@v0.1.1-beta
         with:
           title: 'Mona the Octocat'
           publication_id: 'iidddd'
