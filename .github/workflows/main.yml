@@ -9,7 +9,7 @@ jobs:
         id: hello
         uses: johnkayode/hashnode-pub@v0.1.1
         with:
-          title: 'Mona the Octocat'
+          title: 'Hello World'
           publication_id: 'iidddd'
           access_token: "iddddd"
           markdown: 'README.md'
