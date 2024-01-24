@@ -13,7 +13,7 @@ jobs:
         with:
           title: 'Hello World'
           publication_id: '5fca4625a4865f740d163b18'
-          coverImage: 'https://fastly.picsum.photos/id/4/5000/3333.jpg'
+          cover_image: 'https://fastly.picsum.photos/id/4/5000/3333.jpg'
           access_token: ${{ secrets.HASHNODE_ACCESS_TOKEN }}
           markdown: 'README.md'
 
