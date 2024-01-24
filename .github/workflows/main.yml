@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Publish README
         id: hello
-        uses: johnkayode/hashnode-pub@v0.1.3
+        uses: johnkayode/hashnode-pub@v0.1.0
         with:
           title: 'Hello World'
           publication_id: 'iidddd'
