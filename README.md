@@ -1,1 +1,3 @@
-## HELLO WORLD
+# Ticket.ME
+
+A ticketing platform for events

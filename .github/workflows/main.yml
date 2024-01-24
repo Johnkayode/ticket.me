@@ -9,11 +9,12 @@ jobs:
         uses: actions/checkout@v2
       - name: Publish README
         id: hello
-        uses: johnkayode/hashnode-pub@v0.1.0
+        uses: johnkayode/hashnode-pub@v0.1.2
         with:
           title: 'Hello World'
-          publication_id: 'iidddd'
-          access_token: "iddddd"
+          publication_id: '5fca4625a4865f740d163b18'
+          coverImage: 'https://fastly.picsum.photos/id/4/5000/3333.jpg'
+          access_token: ${{ secrets.HASHNODE_ACCESS_TOKEN }}
           markdown: 'README.md'
 
       - name: Get the publication url
