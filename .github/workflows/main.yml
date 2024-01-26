@@ -9,13 +9,14 @@ jobs:
         uses: actions/checkout@v2
       - name: Publish README
         id: hello
-        uses: johnkayode/hashnode-pub@v0.1.3
+        uses: johnkayode/hashnode-pub@v0.1.4
         with:
           title: 'This Little World'
           publication_id: '5fca4625a4865f740d163b18'
           cover_image: 'https://randomwordgenerator.com/img/picture-generator/54e1d1444e52ac14f1dc8460962e33791c3ad6e04e50744172277ed0974ac3_640.jpg'
           access_token: ${{ secrets.HASHNODE_ACCESS_TOKEN }}
-          format: markdown
-          source: 'README.md'
+          format: devto
+          source: 'https://dev.to/johnkayode/how-things-work-shazam-2ka4'
+          devto_token: ${{ secrets.DEVTO_TOKEN }}
       - name: Get the publication url
         run: echo "The Publish url was ${{ steps.hello.outputs.url }}"
